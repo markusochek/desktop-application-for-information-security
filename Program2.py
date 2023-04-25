@@ -1,14 +1,11 @@
 # LFSR
 import numpy as np
-def lfsr_period():
-    n = int(input('Введите длину регистра 4 или 8: '))
-    ivr = []
-    for i in range(n):
-        iv = int(input('Введите значение ' + str(i+1) + ': '))
-        ivr.append(iv)
-    print(ivr, ivr[n - 1])
+
+
+def lfsr_period(n, ivr):
     x = ivr
     i = 0
+    lines = ""
     while True:
         i += 1
         e0 = 0
@@ -20,12 +17,11 @@ def lfsr_period():
         ivr = ivr[0:n - 1:]
         ivr.insert(0, e0)
         if ivr == x:
-            print('Период равен ', i)
-            break
+            return [i, lines]
         else:
-            print(ivr, ivr[n - 1])
+            lines += str(str(ivr) + " " + str(ivr[n - 1]) + "\n")
+
+
 def solve_mod_2(A, B):
     x = np.linalg.solve(A, B)
     return x % 2
-
-print(lfsr_period())
