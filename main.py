@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import ttk
 
-from program1 import program1
-from program2 import program2
-from program3 import program3
-from program4 import program4
+from FormsProgram1 import formsProgram1
+from FormsProgram2 import formsProgram2
+from FormsProgram3 import formsProgram3
+from FormsProgram4 import formsProgram4
 
 window = Tk()
 window.title("программа")
@@ -24,9 +24,9 @@ for i in range(4):
     frames[i].pack(fill=BOTH, expand=True, padx=20, pady=20)
     notebook.add(frames[i], text=namesPrograms[i])
 
-program1(window, frames[0])
-program2(window, frames[1])
-program3(window, frames[2])
-program4(window, frames[3])
+formsProgram1(window, frames[0])
+formsProgram2(window, frames[1])
+formsProgram3(window, frames[2])
+formsProgram4(window, frames[3])
 
 window.mainloop()
