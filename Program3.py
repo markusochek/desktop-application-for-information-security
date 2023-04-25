@@ -1,7 +1,4 @@
 # Линейный конгурэнтный метод
-from functools import partial
-from tkinter import *
-
 
 def linear_congruential_method(a, c, m, x0, n):
     result = ""
