@@ -23,5 +23,4 @@ def lfsr_period(n, ivr):
 
 
 def solve_mod_2(A, B):
-    x = np.linalg.solve(A, B)
-    return x % 2
+    return np.linalg.solve(A, B) % 2

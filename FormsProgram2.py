@@ -1,12 +1,52 @@
 from functools import partial
 from tkinter import *
-from Program2 import lfsr_period
+from Program2 import lfsr_period, solve_mod_2
+
+
+def parse(n, AEntry):
+    A = AEntry.get()
+    ANew = []
+    for i in range(len(A)):
+        if (A[i] == '1') or (A[i] == '0'):
+            ANew.append(int(A[i]))
+    print(ANew)
+
+    AnewLine = []
+    stream = []
+    j = 0
+    for i in range(len(ANew)):
+        if j != n:
+            j = j + 1
+        else:
+            AnewLine.append(stream)
+            j = 1
+            stream = []
+        stream.append(ANew[i])
+    AnewLine.append(stream)
+
+    if len(AnewLine) == 1:
+        AnewLine = AnewLine[0]
+
+    return AnewLine
+
+
+def wrapper_solve_mod_2(frame, n, AEntry, BEntry):
+    A = parse(n, AEntry)
+    B = parse(n, BEntry)
+
+    print(A)
+    print(B)
+
+    x = solve_mod_2(A, B)
+    Label(frame, text="x: ").grid(row=n + 9, column=0)
+    iEntry = Entry(frame)
+    iEntry.insert(0, x)
+    iEntry.grid(row=n + 9, column=1)
 
 
 def register_length_selection(frame, registerLengthEntry):
     n = int(registerLengthEntry.get())
     entries = []
-    print(n)
     for i in range(n):
         Label(frame, text="Введите значение " + str(i + 1) + ": ").grid(row=i + 2, column=0)
         entries.append(Entry(frame))
@@ -32,9 +72,24 @@ def wrapper_lfsr_period(frame, n, entries):
     iEntry.grid(row=n + 4, column=1)
 
     Label(frame, text="lines: ").grid(row=n + 5, column=0)
-    iText = Text(frame)
-    iText.insert(1.0, elements[1])
-    iText.grid(row=n + 5, column=1)
+    linesText = Text(frame)
+    linesText.insert(1.0, elements[1])
+    linesText.grid(row=n + 5, column=1)
+
+    Label(frame, text="введите A: ").grid(row=n + 6, column=0)
+    AEntry = Entry(frame)
+    AEntry.grid(row=n + 6, column=1)
+
+    Label(frame, text="введите B: ").grid(row=n + 7, column=0)
+    BEntry = Entry(frame)
+    BEntry.grid(row=n + 7, column=1)
+
+    solveMod2Button = Button(
+        frame,
+        text='solve_mod_2',
+        command=partial(wrapper_solve_mod_2, frame, n, AEntry, BEntry)
+    )
+    solveMod2Button.grid(row=n + 8, column=1)
 
 
 def formsProgram2(window, frame):
