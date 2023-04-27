@@ -1,6 +1,10 @@
 from functools import partial
 from tkinter import *
+
+import FormsProgram2
 from Program2 import lfsr_period, solve_mod_2
+
+registerLengthSelectionButton = None
 
 
 def parse(n, AEntry):
@@ -34,9 +38,6 @@ def wrapper_solve_mod_2(frame, n, AEntry, BEntry):
     A = parse(n, AEntry)
     B = parse(n, BEntry)
 
-    print(A)
-    print(B)
-
     x = solve_mod_2(A, B)
     Label(frame, text="x: ").grid(row=n + 9, column=0)
     iEntry = Entry(frame)
@@ -45,6 +46,9 @@ def wrapper_solve_mod_2(frame, n, AEntry, BEntry):
 
 
 def register_length_selection(frame, registerLengthEntry):
+    for widget in frame.winfo_children():
+        if widget != registerLengthEntry and widget != FormsProgram2.registerLengthSelectionButton:
+            widget.destroy()
     n = int(registerLengthEntry.get())
     entries = []
     for i in range(n):
@@ -98,9 +102,9 @@ def formsProgram2(window, frame):
     registerLengthEntry.insert(0, '4')
     registerLengthEntry.grid(row=0, column=1)
 
-    registerLengthSelectionButton = Button(
+    FormsProgram2.registerLengthSelectionButton = Button(
         frame,
         text='register_length_selection',
         command=partial(register_length_selection, frame, registerLengthEntry)
     )
-    registerLengthSelectionButton.grid(row=1, column=1)
+    FormsProgram2.registerLengthSelectionButton.grid(row=1, column=1)
